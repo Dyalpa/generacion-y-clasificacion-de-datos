@@ -1,0 +1,12 @@
+Juan Perez;32698401
+
+125;Sillas;1
+1291;Soldadora;2
+125;Sillas;7
+1874;Cobador;6
+1079;Lijas;9
+1821;Cincel;6
+443;Clavos;10
+1662;Brocha;10
+125;Sillas;9
+1079;Lijas;10

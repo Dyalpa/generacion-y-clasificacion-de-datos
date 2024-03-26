@@ -1,0 +1,12 @@
+Maria Gonzalez;289486589
+
+1079;Lijas;7
+178;Mesas;1
+337;Guantes;3
+443;Clavos;1
+549;Alicates;3
+1238;Tuercas;1
+178;Mesas;10
+1662;Brocha;5
+496;Prensa;9
+1556;Grava;10

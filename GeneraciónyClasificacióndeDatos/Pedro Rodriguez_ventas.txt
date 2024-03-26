@@ -1,0 +1,12 @@
+Pedro Rodriguez;546274777
+
+231;Bancos;9
+1768;Pala;5
+1026;Tiner;2
+1026;Tiner;1
+1715;Rodillo;1
+1397;Tubo;4
+1662;Brocha;7
+284;Taladro;9
+867;Pintura;6
+1026;Tiner;5

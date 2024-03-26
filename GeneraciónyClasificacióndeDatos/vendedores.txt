@@ -1,0 +1,6 @@
+Nombre/Apellido;Cédula
+
+Juan Perez;32698401
+Maria Gonzalez;289486589
+Luisa Martinez;803062965
+Pedro Rodriguez;546274777
