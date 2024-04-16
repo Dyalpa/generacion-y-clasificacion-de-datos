@@ -1,12 +1,12 @@
 Luisa Martinez;803062965
 
-1238;Tuercas;2
-178;Mesas;9
-443;Clavos;6
-549;Alicates;6
-1132;Bateria;5
 655;Martillo;9
-1238;Tuercas;3
-1291;Soldadora;1
-1556;Grava;10
-231;Bancos;8
+1026;Tiner;9
+1238;Tuercas;7
+1132;Bateria;1
+1238;Tuercas;7
+814;Aislante;5
+1821;Cincel;8
+1768;Pala;1
+814;Aislante;7
+1079;Lijas;4

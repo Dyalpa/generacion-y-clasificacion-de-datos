@@ -1,12 +1,12 @@
 Pedro Rodriguez;546274777
 
-231;Bancos;9
-1768;Pala;5
-1026;Tiner;2
-1026;Tiner;1
-1715;Rodillo;1
-1397;Tubo;4
-1662;Brocha;7
-284;Taladro;9
-867;Pintura;6
-1026;Tiner;5
+1079;Lijas;2
+1450;Barilla;6
+1874;Cobador;6
+1079;Lijas;9
+443;Clavos;6
+1185;Plastico;8
+1768;Pala;8
+973;Disolvente;4
+1450;Barilla;8
+1397;Tubo;8
