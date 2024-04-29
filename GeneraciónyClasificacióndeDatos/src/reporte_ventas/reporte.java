@@ -75,17 +75,23 @@ public class reporte {
         }
         return totalVentas;
     }
+    
 
     private static void escribirReporteVentas(Map<String, Integer> ventasTotales) {
         List<Map.Entry<String, Integer>> listaOrdenada = ventasTotales.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toList());
-
+                .collect(Collectors.toList());                   
+             
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(REPORTE_VENTAS_FILE))) {
+        	writer.write("Nombre/Apellido;Total ventas\n\n");
             for (Map.Entry<String, Integer> entry : listaOrdenada) {
+            
                 writer.write(entry.getKey() + ";" + entry.getValue());
                 writer.newLine();
             }
+            
+    
         } catch (IOException e) {
             e.printStackTrace();
         }

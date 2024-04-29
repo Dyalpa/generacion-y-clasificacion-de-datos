@@ -129,13 +129,20 @@ public class GenerateInfoFiles {
 			for (String nombreProducto : nombresProductos) {
 
 				// Obtiene el ID y el precio del producto actual del mapa
-				int idProducto = productosIdMap.get(nombreProducto);
-				int precio = productosPrecioMap.get(nombreProducto);
+				Integer idProducto = productosIdMap.get(nombreProducto);
+				Integer precio = productosPrecioMap.get(nombreProducto);
 
-				// Escribe la información del producto en el archivo, separada por punto y coma
-				writer.write(idProducto + ";" + nombreProducto + ";" + precio + "\n");
-			}
-		}
+				if (idProducto != null && precio != null) {
+	                // Escribe la información del producto en el archivo, separada por punto y coma
+	                writer.write(idProducto + ";" + nombreProducto + ";" + precio + "\n");
+	            } else {
+	                System.err.println("Error: No se encontró información para el producto '" + nombreProducto + "'.");
+	            }
+	        }
+	        System.out.println("Archivo 'productos.txt' creado exitosamente.");
+	    } catch (IOException e) {
+	        System.err.println("Error al crear el archivo 'productos.txt': " + e.getMessage());
+	    }
 	}
 
 	/**
