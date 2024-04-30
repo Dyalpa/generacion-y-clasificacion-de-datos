@@ -1,6 +1,7 @@
 package reporte_ventas;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,7 +9,8 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * La clase GenerateInfoFiles se utiliza para generar archivos de texto con información de productos y vendedores.
+ * La clase GenerateInfoFiles se utiliza para 
+ * generar archivos de texto con información de productos y vendedores.
  * Contiene métodos para inicializar y escribir dicha información en archivos separados.
  */
 public class GenerateInfoFiles {
@@ -164,54 +166,73 @@ public class GenerateInfoFiles {
 				// Escribe la información del vendedor en el archivo, separada por punto y coma
 				writer.write(entry.getKey() + ";" + entry.getValue() + "\n");
 			}
-		}
+			System.out.println("Archivo 'vendedores.txt' creado exitosamente.");
+	    } catch (IOException e) {
+	        // Mensaje de error en caso de que ocurra una excepción
+	        System.err.println("Ocurrió un error al crear el archivo 'vendedores.txt': " + e.getMessage());
+	    }
 	}
+		
+	
 
 	/**
-	 * Genera archivos de reporte de ventas para cada vendedor.
-	 * Cada archivo contiene la cédula del vendedor y una lista de productos vendidos con sus cantidades.
-	 * @throws IOException Si ocurre un error de entrada/salida al escribir los archivos.
+	 * Este método genera archivos de reporte de ventas para cada vendedor listado en el mapa de vendedores.
+	 * Cada archivo contiene una lista de productos vendidos, la cantidad de cada producto y la cédula del vendedor.
+	 * Los archivos se almacenan en una carpeta denominada "ventas".
+	 * Si se encuentra con algún error durante la creación de los archivos, el método maneja la excepción y proporciona mensajes de error detallados.
 	 */
 	public void createSalesReportFiles() throws IOException {
+	   
+	    Random random = new Random(); // Generador de números aleatorios para simular cantidades de productos vendidos.	 
+	    int maxProductosVendidos = 10; // Número máximo de productos que se pueden vender, utilizado para generar el reporte.	   
+	    String nombreCarpeta = "ventas"; // Nombre de la carpeta donde se almacenarán los archivos de reporte.	   
+	    File carpeta = new File(nombreCarpeta); // Creación de un objeto File para la carpeta 'ventas'.
+	    // Si la carpeta no existe, se crea.
+	    if (!carpeta.exists()) {
+	        carpeta.mkdir();
+	    }
 
-		// Instancia de Random para generar números aleatorios
-		Random random = new Random();
-
-		// Máximo número de productos vendidos que se reportarán
-		int maxProductosVendidos = 10;
-
-		// Itera sobre el conjunto de claves del mapa de vendedores
-		for (String vendedor : vendedoresMap.keySet()) {
-
-			// Crea o sobrescribe el archivo de ventas del vendedor actual
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(vendedor + "_ventas.txt"))) {
-
-				// Obtiene la cédula del vendedor del mapa
-				Integer cedulaVendedor = vendedoresMap.get(vendedor);
-
-				// Escribe la información del vendedor en el archivo
-				writer.write(vendedor + ";" + cedulaVendedor + "\n\n"); 
-
-				// Genera un reporte de ventas con productos aleatorios y sus cantidades
-				for (int i = 0; i < maxProductosVendidos; i++) {
-
-					// Selecciona un producto aleatorio de la lista de productos
-					String productoVendido = nombresProductos[random.nextInt(nombresProductos.length)];
-
-					// Obtiene el ID del producto del mapa
-					int idProducto = productosIdMap.get(productoVendido); 
-
-					// Genera una cantidad vendida aleatoria entre 1 y 10
-					int cantidadVendida = 1 + random.nextInt(10); 
-
-					// Escribe la información del producto vendido en el archivo
-
-					writer.write(idProducto + ";" + productoVendido + ";" + cantidadVendida + "\n");
-				}
-			}
-		}
+	    // Iteración sobre cada vendedor en el mapa de vendedores.
+	    for (String vendedor : vendedoresMap.keySet()) {
+	    	// Construcción del nombre del archivo de reporte para el vendedor actual.
+	        String nombreArchivo = nombreCarpeta + File.separator + vendedor + "_ventas.txt"; 	      
+	        BufferedWriter writer = null;// Inicialización del BufferedWriter como null para poder cerrarlo en el bloque finally.
+	        try {
+	            // Creación del BufferedWriter para escribir en el archivo de reporte.
+	            writer = new BufferedWriter(new FileWriter(nombreArchivo)); 	           
+	            Integer cedulaVendedor = vendedoresMap.get(vendedor); // Obtención de la cédula del vendedor del mapa de vendedores.	           
+	            writer.write(vendedor + ";" + cedulaVendedor + "\n\n"); // Escritura del nombre y cédula del vendedor en el archivo.	            
+	            writer.write("id;producto;cantidad" + "\n\n"); // Escritura de la cabecera de los detalles de venta en el archivo.
+	            // Generación y escritura de las ventas de productos aleatorios en el archivo.
+	            for (int i = 0; i < maxProductosVendidos; i++) {
+	                // Selección aleatoria de un producto vendido.
+	                String productoVendido = nombresProductos[random.nextInt(nombresProductos.length)];	              
+	                int idProducto = productosIdMap.get(productoVendido); // Obtención del ID del producto del mapa de IDs de productos.	            
+	                int cantidadVendida = 1 + random.nextInt(10);// Generación aleatoria de la cantidad vendida.
+	                // Escritura de los detalles del producto vendido en el archivo.
+	                writer.write(idProducto + ";" + productoVendido + ";" + cantidadVendida + "\n");
+	            }
+	            // Mensaje de confirmación de la creación exitosa del archivo de reporte.
+	            System.out.println("Archivo '" + vendedor + "_ventas' creado exitosamente.");
+	        } catch (IOException e) {
+	            // Manejo de excepciones de entrada/salida con mensaje de error.
+	            System.err.println("Error al crear el archivo '" + vendedor + "_ventas: " + e.getMessage());
+	        } finally {
+	            // Intento de cerrar el BufferedWriter si fue abierto.
+	            try {
+	                if (writer != null) {
+	                    writer.close();
+	                }
+	            } catch (IOException e) {
+	                // Manejo de excepciones al cerrar el BufferedWriter con mensaje de error.
+	                System.err.println("Ocurrió un error al cerrar el archivo de ventas para el vendedor " + vendedor + ": " + e.getMessage());
+	            }
+	        }
+	    }
 	}
-
+	
+	
+	
 	/**
 	 * Punto de entrada principal del programa.
 	 * Crea instancias y ejecuta métodos para generar archivos de productos, vendedores y reportes de ventas.
